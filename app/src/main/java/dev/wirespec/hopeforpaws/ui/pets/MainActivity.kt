@@ -1,4 +1,4 @@
-package dev.wirespec.hopeforpaws
+package dev.wirespec.hopeforpaws.ui.pets
 
 import android.os.Bundle
 import androidx.activity.compose.setContent

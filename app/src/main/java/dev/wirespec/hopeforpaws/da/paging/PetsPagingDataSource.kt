@@ -1,6 +1,5 @@
 package dev.wirespec.hopeforpaws.da.paging
 
-
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import dev.wirespec.hopeforpaws.da.web.HopeForPawsWebAPI
@@ -8,7 +7,7 @@ import dev.wirespec.hopeforpaws.da.web.PetAPIConfig
 import dev.wirespec.hopeforpaws.da.web.PetAPIOptions
 import dev.wirespec.hopeforpaws.models.PetListItemInfo
 
-class PetsPagingDataSource(val webApi: HopeForPawsWebAPI, val petAPIOptions: PetAPIOptions) : PagingSource<Int, PetListItemInfo>() {
+class PetsPagingDataSource(private val webApi: HopeForPawsWebAPI, private val petAPIOptions: PetAPIOptions) : PagingSource<Int, PetListItemInfo>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PetListItemInfo> {
         val startPos = params.key ?: 0
 
@@ -31,5 +30,5 @@ class PetsPagingDataSource(val webApi: HopeForPawsWebAPI, val petAPIOptions: Pet
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, PetListItemInfo>): Int = 1
+    override fun getRefreshKey(state: PagingState<Int, PetListItemInfo>): Int = 0
 }
