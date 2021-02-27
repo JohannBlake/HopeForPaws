@@ -2,17 +2,17 @@ package dev.wirespec.hopeforpaws.da.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import dev.wirespec.hopeforpaws.da.web.HopeForPawsWebAPI
+import dev.wirespec.hopeforpaws.da.Repository
 import dev.wirespec.hopeforpaws.da.web.PetAPIConfig
 import dev.wirespec.hopeforpaws.da.web.PetAPIOptions
 import dev.wirespec.hopeforpaws.models.PetListItemInfo
 
-class PetsPagingDataSource(private val webApi: HopeForPawsWebAPI, private val petAPIOptions: PetAPIOptions) : PagingSource<Int, PetListItemInfo>() {
+class PetsPagingDataSource(private val petAPIOptions: PetAPIOptions) : PagingSource<Int, PetListItemInfo>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PetListItemInfo> {
         val startPos = params.key ?: 0
 
         return try {
-            val pets = webApi.getPets(startPos, petAPIOptions.pageSize, if (petAPIOptions.sortDesc) "desc" else "asc")
+            val pets = Repository.getPets(petAPIOptions)
 
             var nextStartPos: Int? = null
 

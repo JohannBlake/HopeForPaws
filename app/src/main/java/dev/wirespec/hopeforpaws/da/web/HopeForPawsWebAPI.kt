@@ -15,5 +15,5 @@ interface HopeForPawsWebAPI {
      * Retrieves a list of pets.
      */
     @GET("getPets")
-    fun getPets(@Query("sp") startPos: Int, @Query("ps") pageSize: Int, @Query("sd") sortDirection: String): List<PetListItemInfo>
+    suspend fun getPets(@Query("sp") startPos: Int, @Query("ps") pageSize: Int, @Query("sd") sortDirection: String): List<PetListItemInfo>
 }

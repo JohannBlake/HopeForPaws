@@ -1,20 +1,26 @@
 package dev.wirespec.hopeforpaws.ui.pets
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import dev.wirespec.hopeforpaws.da.Repository
+import dev.wirespec.hopeforpaws.da.paging.PetsPagingDataSource
 import dev.wirespec.hopeforpaws.da.web.PetAPIOptions
 import dev.wirespec.hopeforpaws.models.PetListItemInfo
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 
-class PetsViewModel: ViewModel() {
-    private lateinit var _petsFlow: Flow<PagingData<PetListItemInfo>>
+class PetsViewModel : ViewModel() {
+
     private val apiOptions = PetAPIOptions()
 
-    val petsFlow: Flow<PagingData<PetListItemInfo>>
+    val pets: Flow<PagingData<PetListItemInfo>> = Pager(PagingConfig(pageSize = 20)) {
+        PetsPagingDataSource(apiOptions)
+    }.flow
+
+/*    private lateinit var _petsFlow: Flow<PagingData<PetListItemInfo>>
+    private val apiOptions = PetAPIOptions()
+
+    val pets: Flow<PagingData<PetListItemInfo>>
         get() = _petsFlow
 
     init {
@@ -25,11 +31,5 @@ class PetsViewModel: ViewModel() {
 
     private suspend fun getPets() {
         _petsFlow = Repository.getPets(apiOptions).cachedIn(viewModelScope)
-    }
-
-/*    private fun getPets() = launchPagingAsync({
-        Repository.getPets(apiOptions).cachedIn(viewModelScope)
-    }, {
-        _petsFlow = it
-    })*/
+    }*/
 }
