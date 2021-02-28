@@ -10,7 +10,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -58,14 +57,16 @@ fun PetsUI(pets: Flow<PagingData<PetListItemInfo>>) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(300.dp)
+                    .height(200.dp)
                     .padding(bottom = 15.dp)
             ) {
                 CoilImage(
                     data = "https://storage.googleapis.com/wirespec.appspot.com/images/cats/" + pet!!.id + "-1.jpg",
                     contentDescription = "Random cute yorkshire",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+                    modifier = Modifier.fillMaxWidth(),
+                    fadeIn = true
+                    //modifier = Modifier.width(200.dp),
+                    //contentScale = ContentScale.FillWidth
                 )
             }
         }
