@@ -4,10 +4,16 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -33,6 +39,7 @@ import kotlinx.coroutines.flow.Flow
 class MainActivity : AppCompatActivity() {
     lateinit var vm: PetsViewModel
 
+    @ExperimentalAnimationApi
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +63,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 
+@ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
 fun PetsObs(vm: PetsViewModel = viewModel()) {
@@ -65,26 +73,33 @@ fun PetsObs(vm: PetsViewModel = viewModel()) {
     PetsUI(screen.value, pets = vm.pets, selectedPet = selectedPet.value)
 }
 
+@ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
 fun PetsUI(screen: Screens, pets: Flow<PagingData<PetListItemInfo>>, vm: PetsViewModel = viewModel(), selectedPet: PetListItemInfo?) {
-    when (screen) {
-        Screens.PET_LIST -> {
-            Row {
-                val petItems = pets.collectAsLazyPagingItems()
-                var colWidth = (screenRectDp.width() / 3).toInt()
 
-                LazyColumn {
-                    items(petItems) { pet ->
-                        PetGridRow(petListItem = pet!!, petItems = petItems, colWidth = colWidth, onItemClick = { petClicked ->
-                            vm.onGridItemClick(petClicked)
-                        })
-                    }
-                }
+    Row {
+        val petItems = pets.collectAsLazyPagingItems()
+        var colWidth = (screenRectDp.width() / 3).toInt()
+
+        LazyColumn {
+            items(petItems) { pet ->
+                PetGridRow(petListItem = pet!!, petItems = petItems, colWidth = colWidth, onItemClick = { petClicked ->
+                    vm.onGridItemClick(petClicked)
+                })
             }
         }
-        Screens.PET_DETAILS -> {
-            Text("Details go here")
+    }
+
+    AnimatedVisibility(
+        visible = screen == Screens.PET_DETAILS,
+        enter = slideInHorizontally(initialOffsetX = { it }),
+        exit = slideOutHorizontally(targetOffsetX = { it })
+    ) {
+        Surface(modifier = Modifier.fillMaxSize()) {
+            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                Text("Details go here")
+            }
         }
     }
 }
