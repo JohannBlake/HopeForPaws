@@ -11,5 +11,6 @@ data class PetListItemInfo (
     var genderId: Int = 0,
     var age: Int = 0,
     var photoUrl: String = "",
-    var location: String = ""
+    var location: String = "",
+    var position: Int = 0
 )

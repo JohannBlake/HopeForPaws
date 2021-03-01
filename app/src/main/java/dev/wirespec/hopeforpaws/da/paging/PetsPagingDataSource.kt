@@ -15,6 +15,12 @@ class PetsPagingDataSource(private val petAPIOptions: PetAPIOptions) : PagingSou
         return try {
             var pets = Repository.getPets(petAPIOptions)
 
+            // Store the position of each item out of the total items. This is needed to help
+            // the grid layout to determine which column the item will appear under.
+
+            pets.forEachIndexed { index, pet ->
+                pet.position = startPos  + index
+            }
 //            var prevKey = if (startPos > 0) startPos - PetAPIConfig.PAGING_SIZE else null
 //            var nextKey = if (pets.isNotEmpty()) startPos + PetAPIConfig.PAGING_SIZE else null
             var prevKey: Int? = null
