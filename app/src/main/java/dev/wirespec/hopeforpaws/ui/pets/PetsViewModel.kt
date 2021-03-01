@@ -1,5 +1,7 @@
 package dev.wirespec.hopeforpaws.ui.pets
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -13,23 +15,14 @@ class PetsViewModel : ViewModel() {
 
     private val apiOptions = PetAPIOptions()
 
+    private val _petItem = MutableLiveData<PetListItemInfo>(null)
+    val petItem: LiveData<PetListItemInfo> = _petItem
+
+    fun onGridItemClick(petItemClicked: PetListItemInfo) {
+        _petItem.value = petItemClicked
+    }
+
     val pets: Flow<PagingData<PetListItemInfo>> = Pager(PagingConfig(pageSize = 20)) {
         PetsPagingDataSource(apiOptions)
     }.flow
-
-/*    private lateinit var _petsFlow: Flow<PagingData<PetListItemInfo>>
-    private val apiOptions = PetAPIOptions()
-
-    val pets: Flow<PagingData<PetListItemInfo>>
-        get() = _petsFlow
-
-    init {
-        viewModelScope.launch {
-            getPets()
-        }
-    }
-
-    private suspend fun getPets() {
-        _petsFlow = Repository.getPets(apiOptions).cachedIn(viewModelScope)
-    }*/
 }
