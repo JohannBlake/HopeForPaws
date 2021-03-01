@@ -19,7 +19,7 @@ class PetsPagingDataSource(private val petAPIOptions: PetAPIOptions) : PagingSou
             // the grid layout to determine which column the item will appear under.
 
             pets.forEachIndexed { index, pet ->
-                pet.position = startPos  + index
+                pet.position = petAPIOptions.startPos  + index
             }
 //            var prevKey = if (startPos > 0) startPos - PetAPIConfig.PAGING_SIZE else null
 //            var nextKey = if (pets.isNotEmpty()) startPos + PetAPIConfig.PAGING_SIZE else null
