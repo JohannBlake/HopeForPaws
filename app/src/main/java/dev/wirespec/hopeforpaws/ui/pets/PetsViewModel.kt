@@ -26,6 +26,15 @@ class PetsViewModel : ViewModel() {
         _screen.value = Screens.PET_DETAILS
     }
 
+    fun onBackButtonPressed(): Boolean {
+        if (screen.value == Screens.PET_DETAILS) {
+            _screen.value = Screens.PET_LIST
+            return true
+        }
+
+        return false
+    }
+
     val pets: Flow<PagingData<PetListItemInfo>> = Pager(PagingConfig(pageSize = 20)) {
         PetsPagingDataSource(apiOptions)
     }.flow

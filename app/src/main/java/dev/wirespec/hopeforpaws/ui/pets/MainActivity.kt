@@ -2,6 +2,7 @@ package dev.wirespec.hopeforpaws.ui.pets
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -30,6 +31,8 @@ import kotlinx.coroutines.flow.Flow
 
 
 class MainActivity : AppCompatActivity() {
+    lateinit var vm: PetsViewModel
+
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,9 +48,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        val viewModel by viewModels<PetsViewModel>()
+
+        if (!viewModel.onBackButtonPressed())
+            super.onBackPressed()
     }
 }
+
 
 @ExperimentalFoundationApi
 @Composable
@@ -65,13 +72,12 @@ fun PetsUI(screen: Screens, pets: Flow<PagingData<PetListItemInfo>>, vm: PetsVie
         Screens.PET_LIST -> {
             Row {
                 val petItems = pets.collectAsLazyPagingItems()
-                var colWidth = (screenRectDp.width() / 3  ).toInt()
+                var colWidth = (screenRectDp.width() / 3).toInt()
 
                 LazyColumn {
                     items(petItems) { pet ->
-                        PetGridRow(petListItem = pet!!, petItems = petItems, colWidth = colWidth, onItemClick = {petClicked ->
+                        PetGridRow(petListItem = pet!!, petItems = petItems, colWidth = colWidth, onItemClick = { petClicked ->
                             vm.onGridItemClick(petClicked)
-                            //screen = Screens.PET_DETAILS
                         })
                     }
                 }
@@ -82,13 +88,14 @@ fun PetsUI(screen: Screens, pets: Flow<PagingData<PetListItemInfo>>, vm: PetsVie
         }
     }
 }
-//onItemClick: (PetListItemInfo) -> Unit
+
 @Composable
 fun PetGridRow(
     petListItem: PetListItemInfo,
     petItems: LazyPagingItems<PetListItemInfo>,
     colWidth: Int,
-    onItemClick: (PetListItemInfo) -> Unit) {
+    onItemClick: (PetListItemInfo) -> Unit
+) {
 
     // If the item that is being requested appears in the first column, return it and all the
     // other items following it that make up the row.
@@ -125,11 +132,13 @@ fun PetGridRow(
                     fadeIn = true,
                     contentScale = ContentScale.Fit,
 
-                )
+                    )
                 Row(modifier = Modifier.padding(top = 110.dp)) {
-                    Text(pet.name, modifier = Modifier
-                        .width(colWidth.dp)
-                        .padding(start = 5.dp), color = Color.White)
+                    Text(
+                        pet.name, modifier = Modifier
+                            .width(colWidth.dp)
+                            .padding(start = 5.dp), color = Color.White
+                    )
                 }
             }
         }
