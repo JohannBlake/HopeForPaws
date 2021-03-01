@@ -10,7 +10,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -26,6 +27,7 @@ import dev.wirespec.hopeforpaws.models.PetListItemInfo
 import dev.wirespec.hopeforpaws.ui.theme.HopeForPawsTheme
 import dev.wirespec.hopeforpaws.utils.DeviceUtils.Companion.screenRectDp
 import kotlinx.coroutines.flow.Flow
+
 
 class MainActivity : AppCompatActivity() {
     @ExperimentalFoundationApi
@@ -50,21 +52,15 @@ class MainActivity : AppCompatActivity() {
 @ExperimentalFoundationApi
 @Composable
 fun PetsObs(vm: PetsViewModel = viewModel()) {
-    PetsUI(vm.pets)
-}
+    var screen = vm.screen.observeAsState(Screens.PET_LIST)
+    var selectedPet = vm.selectedPetItem.observeAsState(null)
 
-private enum class Screens {
-    PET_LIST,
-    PET_DETAILS
+    PetsUI(screen.value, pets = vm.pets, selectedPet = selectedPet.value)
 }
 
 @ExperimentalFoundationApi
 @Composable
-fun PetsUI(pets: Flow<PagingData<PetListItemInfo>>) {
-    var screen by remember { mutableStateOf(Screens.PET_LIST)}
-    var selectedPet by remember { mutableStateOf<PetListItemInfo?>(null)}
-    //getViewModel().onGridItemClick.observeAsState("")
-
+fun PetsUI(screen: Screens, pets: Flow<PagingData<PetListItemInfo>>, vm: PetsViewModel = viewModel(), selectedPet: PetListItemInfo?) {
     when (screen) {
         Screens.PET_LIST -> {
             Row {
@@ -74,8 +70,8 @@ fun PetsUI(pets: Flow<PagingData<PetListItemInfo>>) {
                 LazyColumn {
                     items(petItems) { pet ->
                         PetGridRow(petListItem = pet!!, petItems = petItems, colWidth = colWidth, onItemClick = {petClicked ->
-                            selectedPet = petClicked
-                            screen = Screens.PET_DETAILS
+                            vm.onGridItemClick(petClicked)
+                            //screen = Screens.PET_DETAILS
                         })
                     }
                 }
@@ -93,6 +89,7 @@ fun PetGridRow(
     petItems: LazyPagingItems<PetListItemInfo>,
     colWidth: Int,
     onItemClick: (PetListItemInfo) -> Unit) {
+
     // If the item that is being requested appears in the first column, return it and all the
     // other items following it that make up the row.
 

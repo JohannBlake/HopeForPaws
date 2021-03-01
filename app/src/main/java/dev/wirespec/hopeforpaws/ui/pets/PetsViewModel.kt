@@ -15,14 +15,23 @@ class PetsViewModel : ViewModel() {
 
     private val apiOptions = PetAPIOptions()
 
+    private val _screen = MutableLiveData(Screens.PET_LIST)
+    val screen: LiveData<Screens> = _screen
+
     private val _petItem = MutableLiveData<PetListItemInfo>(null)
-    val petItem: LiveData<PetListItemInfo> = _petItem
+    val selectedPetItem: LiveData<PetListItemInfo> = _petItem
 
     fun onGridItemClick(petItemClicked: PetListItemInfo) {
         _petItem.value = petItemClicked
+        _screen.value = Screens.PET_DETAILS
     }
 
     val pets: Flow<PagingData<PetListItemInfo>> = Pager(PagingConfig(pageSize = 20)) {
         PetsPagingDataSource(apiOptions)
     }.flow
+}
+
+enum class Screens {
+    PET_LIST,
+    PET_DETAILS
 }
