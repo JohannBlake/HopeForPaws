@@ -17,6 +17,7 @@
     <style name="Theme.HopeForPaws.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/dar_grey</item>
     </style>
 
     <style name="Theme.HopeForPaws.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
