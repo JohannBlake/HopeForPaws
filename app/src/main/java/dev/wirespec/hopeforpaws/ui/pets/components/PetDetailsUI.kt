@@ -72,7 +72,7 @@ fun PetDetailsUI(vm: PetsViewModel = viewModel()) {
             Row(
                 horizontalArrangement = Arrangement.Center, modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 20.dp, end = 20.dp)
+                    .padding(bottom = 20.dp)
             ) {
                 val buttonColors = ButtonDefaults.buttonColors(backgroundColor = Teal700, contentColor = Teal100)
 
