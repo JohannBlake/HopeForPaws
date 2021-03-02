@@ -2,6 +2,10 @@
 
 An Android demo app submitted to Google's contest "Dev Challenge" for the purpose of showcasing the beta release of Jetpack Compose.
 
+![https://github.com/JohannBlake/HopeForPaws/blob/main/images/splash_screen.png](https://github.com/JohannBlake/HopeForPaws/blob/main/images/splash_screen.png =500x)
+![https://github.com/JohannBlake/HopeForPaws/blob/main/images/pet_list.png](https://github.com/JohannBlake/HopeForPaws/blob/main/images/pet_list.png =500x)
+![https://github.com/JohannBlake/HopeForPaws/blob/main/images/pet_details.png](https://github.com/JohannBlake/HopeForPaws/blob/main/images/pet_details.png =500x)
+
 The app displays a list of cats that can be adopted. Clicking on a list item displays details about the pet including their name, gender, date of birth, color, and a description about the animal. An image gallery is included and some cats have more images than others. There is also a button that you can click on to adopt the cat. Clicking it opens the browser to the site where the adoption process begins.
 
 The app is written in Kotlin and uses only Jetpack Compose to create the UIs. Data is generated on a backend using Wirespec (wirespec.dev).  Wirespec is a free online service that lets you easily and quickly create APIs at endpoints that you can define. I am the creator and owner of Wirespec
