@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -20,9 +22,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.wirespec.hopeforpaws.R
 import dev.wirespec.hopeforpaws.models.PetListItemInfo
 import dev.wirespec.hopeforpaws.ui.pets.PetsViewModel
-import dev.wirespec.hopeforpaws.ui.theme.LightCyan
-import dev.wirespec.hopeforpaws.ui.theme.LightGray
-import dev.wirespec.hopeforpaws.ui.theme.WhiteAlpha
+import dev.wirespec.hopeforpaws.ui.theme.*
 
 
 @Composable
@@ -49,7 +49,11 @@ fun PetDetailsUI(vm: PetsViewModel = viewModel()) {
                     .fillMaxWidth()
                     .padding(top = 20.dp, bottom = 30.dp)
             )
-            Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp)) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp)
+            ) {
                 DetailProperty(R.string.gender, if (pet.gender == "m") stringResource(R.string.male) else stringResource(R.string.female))
                 DetailProperty(R.string.born, pet.birthdate)
                 DetailProperty(R.string.color, pet.color)
@@ -62,6 +66,25 @@ fun PetDetailsUI(vm: PetsViewModel = viewModel()) {
                     .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
                 color = LightCyan
             )
+            Row(
+                horizontalArrangement = Arrangement.Center, modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp, end = 20.dp)
+            ) {
+                val buttonColors = ButtonDefaults.buttonColors(backgroundColor = Teal700, contentColor = Teal100)
+
+                Button(
+                    colors = buttonColors,
+                    elevation = ButtonDefaults.elevation(5.dp),
+                    onClick = {
+
+                    }) {
+                    Text(
+                        text = stringResource(R.string.adopt) + " " + pet.name,
+                        modifier = Modifier.padding(start = 10.dp, top = 7.dp, end = 10.dp, bottom = 7.dp)
+                    )
+                }
+            }
         }
     }
 }
