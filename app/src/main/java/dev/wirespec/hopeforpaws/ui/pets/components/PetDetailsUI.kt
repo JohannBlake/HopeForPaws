@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.wirespec.hopeforpaws.R
 import dev.wirespec.hopeforpaws.models.PetListItemInfo
 import dev.wirespec.hopeforpaws.ui.pets.PetsViewModel
+import dev.wirespec.hopeforpaws.ui.theme.LightCyan
 import dev.wirespec.hopeforpaws.ui.theme.LightGray
 import dev.wirespec.hopeforpaws.ui.theme.WhiteAlpha
 
@@ -49,24 +49,19 @@ fun PetDetailsUI(vm: PetsViewModel = viewModel()) {
                     .fillMaxWidth()
                     .padding(top = 20.dp, bottom = 30.dp)
             )
-            Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth()) {
-                Column(modifier =  Modifier.padding(start = 10.dp, end= 10.dp, bottom = 10.dp)) {
-                    Text(stringResource(R.string.gender), style = MaterialTheme.typography.subtitle2, color = MaterialTheme.colors.secondary)
-                    Text(text = if (pet.gender == "m") stringResource(R.string.male) else stringResource(R.string.female))
-                }
-                Column(modifier =  Modifier.padding(start = 10.dp, end= 10.dp, bottom = 10.dp)) {
-                    Text(stringResource(R.string.born), style = MaterialTheme.typography.subtitle2, color = MaterialTheme.colors.secondary)
-                    Text(text = pet.birthdate)
-                }
-                Column(modifier =  Modifier.padding(start = 10.dp, end= 10.dp, bottom = 10.dp)) {
-                    Text(stringResource(R.string.color), style = MaterialTheme.typography.subtitle2, color = MaterialTheme.colors.secondary)
-                    Text(text = pet.color)
-                }
-                Column(modifier =  Modifier.padding(start = 10.dp, end= 10.dp, bottom = 10.dp)) {
-                    Text(stringResource(R.string.type), style = MaterialTheme.typography.subtitle2, color = MaterialTheme.colors.secondary)
-                    Text(text = pet.type)
-                }
+            Row(horizontalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp)) {
+                DetailProperty(R.string.gender, if (pet.gender == "m") stringResource(R.string.male) else stringResource(R.string.female))
+                DetailProperty(R.string.born, pet.birthdate)
+                DetailProperty(R.string.color, pet.color)
+                //DetailProperty(R.string.type, pet.type)
             }
+            MultiLineText(
+                pet.description,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp, bottom = 20.dp),
+                color = LightCyan
+            )
         }
     }
 }
