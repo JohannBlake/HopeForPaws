@@ -12,7 +12,7 @@ class RetrofitClient {
 
         fun createRetrofitClient(): HopeForPawsWebAPI {
             return Retrofit.Builder()
-                .baseUrl(HOPE_FOR_PAWS_BASE_ADDRESS)
+                .baseUrl(API_BASE_ADDRESS)
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
                 .client(initializeRetrofit())
                 .build().create(HopeForPawsWebAPI::class.java)
