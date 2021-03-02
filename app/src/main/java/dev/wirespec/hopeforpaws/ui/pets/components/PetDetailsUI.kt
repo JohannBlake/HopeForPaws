@@ -1,5 +1,7 @@
 package dev.wirespec.hopeforpaws.ui.pets.components
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -19,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import dev.wirespec.hopeforpaws.App
 import dev.wirespec.hopeforpaws.R
 import dev.wirespec.hopeforpaws.models.PetListItemInfo
 import dev.wirespec.hopeforpaws.ui.pets.PetsViewModel
@@ -77,7 +80,10 @@ fun PetDetailsUI(vm: PetsViewModel = viewModel()) {
                     colors = buttonColors,
                     elevation = ButtonDefaults.elevation(5.dp),
                     onClick = {
-
+                        val uri = Uri.parse("https://www.shelterluv.com/matchme/adopt/BKNB/Cat")
+                        val intent = Intent(Intent.ACTION_VIEW, uri)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        App.context.startActivity(intent)
                     }) {
                     Text(
                         text = stringResource(R.string.adopt) + " " + pet.name,
