@@ -2,9 +2,11 @@
 
 An Android demo app submitted to Google's contest "Dev Challenge" for the purpose of showcasing the beta release of Jetpack Compose.
 
-<img src="https://github.com/JohannBlake/HopeForPaws/blob/main/images/splash_screen.png " width="300" >
-<img src="https://github.com/JohannBlake/HopeForPaws/blob/main/images/pet_list.png " width="300" >
-<img src="https://github.com/JohannBlake/HopeForPaws/blob/main/images/pet_details.png " width="300" >
+<p float="left">
+<img src="https://github.com/JohannBlake/HopeForPaws/blob/main/images/splash_screen.png " width="250" >
+<img src="https://github.com/JohannBlake/HopeForPaws/blob/main/images/pet_list.png " width="250" >
+<img src="https://github.com/JohannBlake/HopeForPaws/blob/main/images/pet_details.png " width="250" >
+</p>
 
 The app displays a list of cats that can be adopted. Clicking on a list item displays details about the pet including their name, gender, date of birth, color, and a description about the animal. An image gallery is included and some cats have more images than others. There is also a button that you can click on to adopt the cat. Clicking it opens the browser to the site where the adoption process begins.
 
