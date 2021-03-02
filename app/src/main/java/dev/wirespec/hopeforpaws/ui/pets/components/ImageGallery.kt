@@ -1,8 +1,10 @@
 package dev.wirespec.hopeforpaws.ui.pets.components
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -13,8 +15,6 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 import dev.wirespec.hopeforpaws.da.web.PETS_LARGE_IMAGES_PATH
 import dev.wirespec.hopeforpaws.da.web.PETS_THUMBNAIL_IMAGES_PATH
 import dev.wirespec.hopeforpaws.models.PetListItemInfo
-import dev.wirespec.hopeforpaws.ui.theme.LightGray
-import dev.wirespec.hopeforpaws.ui.theme.WhiteAlpha
 
 @Composable
 fun ImageGallery(pet: PetListItemInfo) {
@@ -22,10 +22,7 @@ fun ImageGallery(pet: PetListItemInfo) {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .border(width = 2.dp, color = LightGray, shape = RoundedCornerShape(10.dp))
-            .verticalScroll(rememberScrollState())
-            .background(WhiteAlpha)
+            .fillMaxWidth()
     ) {
         CoilImage(
             data = PETS_LARGE_IMAGES_PATH + pet.id + "-" + selectedThumbnailNumber + ".jpg",
@@ -41,7 +38,7 @@ fun ImageGallery(pet: PetListItemInfo) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .requiredHeight(140.dp)
+                    .requiredHeight(100.dp)
                     .padding(top = 4.dp)
                     .horizontalScroll(rememberScrollState()),
                 horizontalArrangement = Arrangement.spacedBy(1.dp)
@@ -50,7 +47,7 @@ fun ImageGallery(pet: PetListItemInfo) {
                     Column(
                         modifier = Modifier
                             .requiredWidth(94.dp)
-                            .requiredHeight(140.dp)
+                            .requiredHeight(100.dp)
                     ) {
 
                         CoilImage(
