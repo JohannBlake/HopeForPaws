@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.Flow
 @Composable
 fun PetsMainUI(screen: Screens, pets: Flow<PagingData<PetListItemInfo>>, vm: PetsViewModel = viewModel(), selectedPet: PetListItemInfo?) {
     AnimatedVisibility(
-        visible = screen == Screens.PET_LIST
+        visible = (screen == Screens.PET_LIST) || (screen == Screens.PET_DETAILS)
     ) {
         PetsListUI(pets)
     }

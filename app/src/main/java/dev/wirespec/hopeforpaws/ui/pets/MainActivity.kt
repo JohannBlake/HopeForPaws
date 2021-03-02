@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             HopeForPawsTheme(darkTheme = true) {
-                // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background, modifier = Modifier.fillMaxSize()) {
                     PetsObs()
                 }

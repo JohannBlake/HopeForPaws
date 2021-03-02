@@ -15,9 +15,13 @@ class PetsPagingDataSource(private val petAPIOptions: PetAPIOptions) : PagingSou
         return try {
             var pets = Repository.getPets(petAPIOptions)
 
+            // IMPORTANT: The backend API has a bug in it. If you set the start position to a value greater
+            // than the last item position, all the records end up getting returned. Until this bug is fixed,
+            // the code below is temporary. It makes sure to limit the number of items to 60. When the backend
+            // is fixed, the code below will be modified to handle paging correctly.
+
             // Store the position of each item out of the total items. This is needed to help
             // the grid layout to determine which column the item will appear under.
-
             pets.forEachIndexed { index, pet ->
                 pet.position = petAPIOptions.startPos  + index
             }
