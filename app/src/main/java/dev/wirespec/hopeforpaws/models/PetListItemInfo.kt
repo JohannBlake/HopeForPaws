@@ -1,11 +1,6 @@
 package dev.wirespec.hopeforpaws.models
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "Pets")
 data class PetListItemInfo (
-    @PrimaryKey
     var id: Int = 0,
     var name: String = "",
     var birthdate: String = "",

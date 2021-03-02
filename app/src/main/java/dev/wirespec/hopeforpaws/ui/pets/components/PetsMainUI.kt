@@ -17,12 +17,21 @@ import kotlinx.coroutines.flow.Flow
 @ExperimentalFoundationApi
 @Composable
 fun PetsMainUI(screen: Screens, pets: Flow<PagingData<PetListItemInfo>>, vm: PetsViewModel = viewModel(), selectedPet: PetListItemInfo?) {
-    PetsListUI(pets)
+    AnimatedVisibility(
+        visible = screen == Screens.PET_LIST
+    ) {
+        PetsListUI(pets)
+    }
+
     AnimatedVisibility(
         visible = screen == Screens.PET_DETAILS,
         enter = slideInHorizontally(initialOffsetX = { it }),
         exit = slideOutHorizontally(targetOffsetX = { it })
     ) {
         PetDetailsUI()
+    }
+
+    if (screen == Screens.SPLASH_SCREEN) {
+        SplashScreenUI()
     }
 }

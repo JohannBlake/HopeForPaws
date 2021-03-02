@@ -15,7 +15,7 @@ class PetsViewModel : ViewModel() {
 
     private val apiOptions = PetAPIOptions()
 
-    private val _screen = MutableLiveData(Screens.PET_LIST)
+    private val _screen = MutableLiveData(Screens.SPLASH_SCREEN)
     val screen: LiveData<Screens> = _screen
 
     private val _petItem = MutableLiveData<PetListItemInfo>(null)
@@ -35,12 +35,17 @@ class PetsViewModel : ViewModel() {
         return false
     }
 
+    fun onSplashScreenCompleted() {
+        _screen.value = Screens.PET_LIST
+    }
+
     val pets: Flow<PagingData<PetListItemInfo>> = Pager(PagingConfig(pageSize = 20)) {
         PetsPagingDataSource(apiOptions)
     }.flow
 }
 
 enum class Screens {
+    SPLASH_SCREEN,
     PET_LIST,
     PET_DETAILS
 }
