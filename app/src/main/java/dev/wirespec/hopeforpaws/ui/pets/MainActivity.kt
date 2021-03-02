@@ -11,7 +11,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
-import dev.wirespec.hopeforpaws.ui.pets.components.PetsUI
+import dev.wirespec.hopeforpaws.ui.pets.components.PetsMainUI
 import dev.wirespec.hopeforpaws.ui.theme.HopeForPawsTheme
 
 
@@ -49,7 +49,7 @@ fun PetsObs(vm: PetsViewModel = viewModel()) {
     var screen = vm.screen.observeAsState(Screens.PET_LIST)
     var selectedPet = vm.selectedPetItem.observeAsState(null)
 
-    PetsUI(screen.value, pets = vm.pets, selectedPet = selectedPet.value)
+    PetsMainUI(screen.value, pets = vm.pets, selectedPet = selectedPet.value)
 }
 
 
