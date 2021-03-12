@@ -10,7 +10,7 @@ An Android demo app submitted to Google's contest "Dev Challenge" for the purpos
 
 The app displays a list of cats that can be adopted. Clicking on a list item displays details about the pet including their name, gender, date of birth, color, and a description about the animal. An image gallery is included and some cats have more images than others. There is also a button that you can click on to adopt the cat. Clicking it opens the browser to the site where the adoption process begins.
 
-The app is written in Kotlin and uses only Jetpack Compose to create the UIs. Data is generated on a backend using Wirespec ([https://wiresepec.dev](https://wirespec.dev)).  Wirespec is a free online service that lets you easily and quickly create APIs at endpoints that you can define. I am the creator and owner of Wirespec
+The app is written in Kotlin and uses only Jetpack Compose to create the UIs. Data is generated on a backend using Wirespec ([https://wirespec.dev](https://wirespec.dev)).  Wirespec is a free online service that lets you easily and quickly create APIs at endpoints that you can define. I am the creator and owner of Wirespec
 
 When the app starts, a splash screen is shown. It runs for 4 seconds. This is a fixed duration and is unfortunately needed as the backend, which is running on a Google Cloud Platform App Engine, probably needs to boot up. Once the instance is running though, it's quite fast in delivering the response.
 
